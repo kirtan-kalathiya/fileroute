@@ -1,7 +1,7 @@
 {
-  "name": "folder-tidy",
-  "version": "1.0.9",
-  "description": "A powerful CLI tool to automatically organize and clean folders with undo support, progress bars, and interactive mode",
+  "name": "fileroute",
+  "version": "1.2.0",
+  "description": "fileroute — Route files to the right place automatically. Monitor folders, match conditions, run actions. A powerful IF→THEN file automation CLI for Windows, macOS, and Linux.",
   "main": "index.js",
   "type": "commonjs",
   "preferGlobal": true,
@@ -13,21 +13,25 @@
     "LICENSE"
   ],
   "bin": {
-    "folder-tidy": "./index.js"
+    "fileroute": "./index.js",
+    "route": "./index.js"
   },
   "scripts": {
     "test": "npm run test:smoke",
     "start": "node index.js",
     "help": "node index.js --help",
-    "test:smoke": "node index.js --help && node index.js tidy --dry-run && node index.js undo --help",
+    "test:smoke": "node index.js --help && node index.js preview --dry-run && node index.js undo --help",
     "prepublishOnly": "npm run test:smoke",
     "release": "npm version patch -m \"release: %s\" && git push origin main --follow-tags",
-    "organize": "node index.js tidy",
-    "clean": "node index.js tidy",
-    "preview": "node index.js tidy --dry-run",
+    "run": "node index.js run",
+    "setup": "node index.js setup",
+    "organize": "node index.js run",
+    "clean": "node index.js run",
+    "preview": "node index.js preview",
     "undo": "node index.js undo",
     "watch": "node index.js watch",
-    "config": "node index.js config"
+    "config": "node index.js config",
+    "rules": "node index.js rules"
   },
   "dependencies": {
     "chalk": "^4.1.2",
@@ -36,26 +40,36 @@
     "chokidar": "^3.5.3"
   },
   "keywords": [
-    "folder-tidy",
+    "fileroute",
+    "file-router",
     "cli",
     "file-organizer",
+    "file-automation",
     "downloads-cleaner",
+    "folder-organizer",
+    "desktop-cleaner",
     "automation",
     "filesystem",
     "productivity",
     "nodejs",
     "undo",
-    "file-management"
+    "file-management",
+    "file-watcher",
+    "rule-engine",
+    "if-then",
+    "watch-folder",
+    "sort-files",
+    "organize-files"
   ],
   "author": "kirtan kalathiya",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kirtan-kalathiya/folder-tidy.git"
+    "url": "git+https://github.com/kirtan-kalathiya/fileroute.git"
   },
-  "homepage": "https://github.com/kirtan-kalathiya/folder-tidy#readme",
+  "homepage": "https://fileroute.dev/",
   "bugs": {
-    "url": "https://github.com/kirtan-kalathiya/folder-tidy/issues"
+    "url": "https://github.com/kirtan-kalathiya/fileroute/issues"
   },
   "publishConfig": {
     "access": "public"

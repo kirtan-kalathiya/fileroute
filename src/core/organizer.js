@@ -84,7 +84,7 @@ function tidyDirectory(targetDir, options) {
   const stats = createStats();
   const files = collectFiles(targetDir, options, stats);
 
-  console.log(`folder-tidy ${VERSION}`);
+  console.log(`fileroute ${VERSION}`);
   console.log(`command: tidy`);
   console.log(`target: ${targetDir}`);
   console.log(`mode: ${options.mode}${options.dryRun ? ' (dry run)' : ''}`);

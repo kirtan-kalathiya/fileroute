@@ -6,12 +6,12 @@ const { getDefaultConfig, loadConfig } = require('../utils/config');
 
 function printTidyHelp(version) {
   console.log(`
-${colors.header('📂 Folder Tidy - Organize Command')} ${version}
+${colors.header('📂 fileroute - Run Command')} ${version}
 
 ${colors.header('Usage:')}
-${colors.arrow('folder-tidy tidy')}
-${colors.arrow('folder-tidy tidy --target <path>')}
-${colors.arrow('folder-tidy tidy --mode <type|name|date>')}
+${colors.arrow('fileroute run <path>')}
+${colors.arrow('fileroute preview <path>')}
+${colors.arrow('fileroute run --mode <type|name|date>')}
 
 ${colors.header('Options:')}
 ${colors.bullet('--target <path>')}          Organize a specific directory

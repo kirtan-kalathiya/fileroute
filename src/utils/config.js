@@ -12,7 +12,7 @@ function getConfigPath(targetDir) {
 
 function getDefaultConfig() {
   return {
-    version: '1.0.8',
+    version: '1.2.0',
     mode: 'type',
     recursive: false,
     includeHidden: false,
@@ -107,7 +107,7 @@ async function createConfig(targetDir) {
   ]);
 
   const config = {
-    version: '1.0.8',
+    version: '1.2.0',
     ...answers,
     excludePatterns: [],
     dryRunByDefault: false,

@@ -19,7 +19,8 @@ function looksLikePath(value) {
 function getTargetFlagValue(argv) {
   const index = argv.indexOf('--target');
   if (index === -1) {
-    return process.cwd();
+    const positionalTarget = argv.find((value) => !value.startsWith('-'));
+    return positionalTarget || process.cwd();
   }
 
   if (!argv[index + 1]) {
@@ -31,37 +32,28 @@ function getTargetFlagValue(argv) {
 
 function printGlobalHelp() {
   console.log(`
-${colors.header('📂 Folder Tidy CLI')} ${VERSION}
+${colors.header('📂 fileroute')} ${VERSION}
 
-${colors.header('💡 EASIEST WAY:')}
-${colors.arrow('folder-tidy')}                   Interactive menu (recommended!)
+${colors.header('The easiest way to use it:')}
+${colors.arrow('fileroute <folder>')}           Organize a folder now
+${colors.arrow('route <folder>')}               Short alias for daily use
+${colors.arrow('fileroute watch <folder>')}     Keep it clean automatically
+${colors.arrow('fileroute undo <folder>')}      Restore the last run
 
-${colors.header('🚀 Quick Commands:')}
-${colors.bullet('folder-tidy organize')}         Organize current folder
-${colors.bullet('folder-tidy clean')}            Organize current folder  
-${colors.bullet('folder-tidy ~/Downloads')}      Organize Downloads
-${colors.bullet('folder-tidy preview')}          Preview changes (dry-run)
-${colors.bullet('folder-tidy undo')}             Undo last operation
-${colors.bullet('folder-tidy restore')}          Undo last operation
-${colors.bullet('folder-tidy watch')}            Watch for new files
-${colors.bullet('folder-tidy config')}           Create config
+${colors.header('Safe options:')}
+${colors.bullet('fileroute preview <folder>')}  See changes before moving files
+${colors.bullet('fileroute')}                   Open the quick menu
 
-${colors.header('📋 Command Aliases:')}
-${colors.bullet('tidy')} = organize = clean              Organize files
-${colors.bullet('undo')} = restore                       Restore files
+${colors.header('Examples:')}
+${colors.arrow('route ~/Downloads')}
+${colors.arrow('fileroute watch ~/Downloads')}
+${colors.arrow('fileroute undo ~/Downloads')}
 
-${colors.header('🎯 Examples:')}
-${colors.arrow('folder-tidy')}                        # Menu
-${colors.arrow('folder-tidy organize')}               # Organize now
-${colors.arrow('folder-tidy preview')}                # Preview first
-${colors.arrow('folder-tidy ~/Downloads --dry-run')}  # Preview specific folder
-${colors.arrow('folder-tidy watch')}                  # Auto-organize
-
-${colors.header('📖 Full Commands:')}
-${colors.bullet('folder-tidy tidy')}              Organize
-${colors.bullet('folder-tidy tidy --target <path>')} Organize specific folder
-${colors.bullet('folder-tidy tidy --dry-run')}   Preview
-${colors.bullet('folder-tidy undo')}              Restore
+${colors.header('Short aliases:')}
+${colors.bullet('route tidy')}           Same as organize
+${colors.bullet('route sort')}           Same as organize
+${colors.bullet('route fix')}            Same as organize
+${colors.bullet('route config')}         Edit saved settings
 
 ${colors.header('Options:')}
 ${colors.bullet('--help, -h')}              Show help
@@ -174,14 +166,20 @@ async function run(argv) {
 
   // Support command aliases for easier use
   const commandAliases = {
+    'run': 'tidy',
     'tidy': 'tidy',
+    'sort': 'tidy',
+    'fix': 'tidy',
     'organize': 'tidy',
     'clean': 'tidy',
+    'juggle': 'tidy',
+    'fj': 'tidy',
     'undo': 'undo',
     'restore': 'undo',
     'preview': 'preview',
     'watch': 'watch',
     'config': 'config',
+    'setup': 'config',
   };
 
   const normalizedCommand = commandAliases[command] || command;

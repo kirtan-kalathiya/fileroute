@@ -1,6 +1,7 @@
-const VERSION = '1.0.8';
-const APP_FOLDER = '.folder-tidy';
+const VERSION = '1.2.0';
+const APP_FOLDER = '.fileroute';
 const MANIFEST_PREFIX = 'manifest-';
+const RULES_CONFIG_FILE = '.fileroute.json';
 const INTERNAL_FILES = new Set(['index.js', 'package.json', 'README.md', 'LICENSE']);
 
 const CATEGORY_RULES = {
@@ -31,5 +32,6 @@ module.exports = {
   INTERNAL_FILES,
   MANIFEST_PREFIX,
   NAME_RULES,
+  RULES_CONFIG_FILE,
   VERSION,
 };

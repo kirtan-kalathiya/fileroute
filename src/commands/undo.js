@@ -8,12 +8,11 @@ const colors = require('../utils/colors');
 
 function printUndoHelp() {
   console.log(`
-${colors.header('📂 Folder Tidy - Undo Command')} ${VERSION}
+${colors.header('📂 FileJuggler CLI - Undo Command')} ${VERSION}
 
 ${colors.header('Usage:')}
-${colors.arrow('folder-tidy undo')}
-${colors.arrow('folder-tidy undo --target <path>')}
-${colors.arrow('folder-tidy undo --manifest <file>')}
+${colors.arrow('filejuggler undo <path>')}
+${colors.arrow('filejuggler undo --manifest <file>')}
 
 ${colors.header('Options:')}
 ${colors.bullet('--target <path>')}      Target directory that contains .folder-tidy manifests
