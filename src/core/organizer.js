@@ -80,12 +80,12 @@ function collectFiles(rootDir, options, stats) {
   return files;
 }
 
-function tidyDirectory(targetDir, options) {
+function routeDirectory(targetDir, options) {
   const stats = createStats();
   const files = collectFiles(targetDir, options, stats);
 
   console.log(`fileroute ${VERSION}`);
-  console.log(`command: tidy`);
+  console.log(`command: route`);
   console.log(`target: ${targetDir}`);
   console.log(`mode: ${options.mode}${options.dryRun ? ' (dry run)' : ''}`);
   console.log(`recursive: ${options.recursive ? 'yes' : 'no'}`);
@@ -146,7 +146,7 @@ function tidyDirectory(targetDir, options) {
   if (!options.dryRun && !options.noManifest && stats.moves.length > 0) {
     manifestPath = saveManifest(targetDir, {
       version: VERSION,
-      command: 'tidy',
+      command: 'route',
       target: targetDir,
       mode: options.mode,
       recursive: options.recursive,
@@ -161,7 +161,7 @@ function tidyDirectory(targetDir, options) {
   if (options.reportPath) {
     reportPath = writeReport(options.reportPath, {
       version: VERSION,
-      command: 'tidy',
+      command: 'route',
       target: targetDir,
       options: {
         mode: options.mode,
@@ -184,5 +184,6 @@ function tidyDirectory(targetDir, options) {
 }
 
 module.exports = {
-  tidyDirectory,
+  routeDirectory,
+  tidyDirectory: routeDirectory,
 };

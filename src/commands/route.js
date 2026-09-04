@@ -1,10 +1,10 @@
 const fs = require('fs');
 const { normalizePath } = require('../utils/paths');
-const { tidyDirectory } = require('../core/organizer');
+const { routeDirectory } = require('../core/organizer');
 const colors = require('../utils/colors');
 const { getDefaultConfig, loadConfig } = require('../utils/config');
 
-function printTidyHelp(version) {
+function printRouteHelp(version) {
   console.log(`
 ${colors.header('📂 fileroute - Run Command')} ${version}
 
@@ -24,11 +24,11 @@ ${colors.bullet('--report <file>')}          Save a JSON report of the run
 ${colors.bullet('--config <file>')}          Load options from a config file
 ${colors.bullet('--no-manifest')}            Skip saving an undo manifest
 ${colors.bullet('--verbose')}                Show detailed skip and scan logs
-${colors.bullet('--help, -h')}               Show tidy help
+${colors.bullet('--help, -h')}               Show command help
 `);
 }
 
-function parseTidyOptions(argv, version) {
+function parseRouteOptions(argv, version) {
   const cliOptions = {};
   const positionalArgs = [];
 
@@ -36,7 +36,7 @@ function parseTidyOptions(argv, version) {
     const arg = argv[i];
 
     if (arg === '--help' || arg === '-h') {
-      printTidyHelp(version);
+      printRouteHelp(version);
       return { help: true };
     }
 
@@ -125,8 +125,8 @@ function parseTidyOptions(argv, version) {
   return options;
 }
 
-function runTidy(argv, version) {
-  const options = parseTidyOptions(argv, version);
+function runRoute(argv, version) {
+  const options = parseRouteOptions(argv, version);
   if (options.help) return;
   const targetDir = options.targetDir;
 
@@ -138,7 +138,7 @@ function runTidy(argv, version) {
     throw new Error(`Target path is not a directory: ${targetDir}`);
   }
 
-  const result = tidyDirectory(targetDir, options);
+  const result = routeDirectory(targetDir, options);
 
   console.log('');
   console.log(colors.header('📊 Summary'));
@@ -172,11 +172,13 @@ function runTidy(argv, version) {
 
   if (!options.dryRun && result.stats.moved > 0) {
     console.log('');
-    console.log(colors.success('✨ Your folder has been tidied!'));
+    console.log(colors.success('✨ Your files have been organized!'));
   }
 }
 
 module.exports = {
-  printTidyHelp,
-  runTidy,
+  printRouteHelp,
+  runRoute,
+  printTidyHelp: printRouteHelp,
+  runTidy: runRoute,
 };

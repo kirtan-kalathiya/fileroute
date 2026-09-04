@@ -1,6 +1,6 @@
 {
   "name": "fileroute",
-  "version": "1.2.0",
+  "version": "1.0.0",
   "description": "fileroute — Route files to the right place automatically. Monitor folders, match conditions, run actions. A powerful IF→THEN file automation CLI for Windows, macOS, and Linux.",
   "main": "index.js",
   "type": "commonjs",
@@ -9,7 +9,6 @@
     "index.js",
     "src",
     "README.md",
-    "QUICK-START.md",
     "LICENSE"
   ],
   "bin": {

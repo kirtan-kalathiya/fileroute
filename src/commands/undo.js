@@ -15,7 +15,7 @@ ${colors.arrow('fileroute undo <path>')}
 ${colors.arrow('fileroute undo --manifest <file>')}
 
 ${colors.header('Options:')}
-${colors.bullet('--target <path>')}      Target directory that contains .folder-tidy manifests
+${colors.bullet('--target <path>')}      Target directory that contains .fileroute manifests
 ${colors.bullet('--manifest <file>')}    Restore a specific manifest file
 ${colors.bullet('--dry-run')}            Preview restore actions without moving anything
 ${colors.bullet('--verbose')}            Show detailed logs

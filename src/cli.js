@@ -1,5 +1,5 @@
 const { VERSION } = require('./constants');
-const { printTidyHelp, runTidy } = require('./commands/tidy');
+const { printRouteHelp, runRoute } = require('./commands/route');
 const { printUndoHelp, runUndo } = require('./commands/undo');
 const colors = require('./utils/colors');
 const { promptUserAction, promptOrganizeOptions } = require('./utils/interactive');
@@ -50,9 +50,9 @@ ${colors.arrow('fileroute watch ~/Downloads')}
 ${colors.arrow('fileroute undo ~/Downloads')}
 
 ${colors.header('Short aliases:')}
-${colors.bullet('route tidy')}           Same as organize
-${colors.bullet('route sort')}           Same as organize
-${colors.bullet('route fix')}            Same as organize
+${colors.bullet('route organize')}       Same as run
+${colors.bullet('route sort')}           Same as run
+${colors.bullet('route fix')}            Same as run
 ${colors.bullet('route config')}         Edit saved settings
 
 ${colors.header('Options:')}
@@ -79,7 +79,7 @@ async function runInteractiveMode() {
           ...(opts.recursive ? ['--recursive'] : []),
           ...(opts.verbose ? ['--verbose'] : []),
         ];
-        runTidy(args, VERSION);
+        runRoute(args, VERSION);
         break;
       }
 
@@ -92,7 +92,7 @@ async function runInteractiveMode() {
           ...(opts.recursive ? ['--recursive'] : []),
           ...(opts.verbose ? ['--verbose'] : []),
         ];
-        runTidy(args, VERSION);
+        runRoute(args, VERSION);
         break;
       }
 
@@ -110,8 +110,12 @@ async function runInteractiveMode() {
 
       case 'config': {
         const { targetDir } = await promptOrganizeOptions();
-        await createConfig(targetDir);
+        const config = await createConfig(targetDir);
         displayConfig(targetDir);
+        if (config && config.autoWatch) {
+          console.log(colors.success('\n✨ Auto-organize (Watch Mode) enabled! Starting watch mode...'));
+          runWatchMode(targetDir);
+        }
         break;
       }
 
@@ -142,7 +146,7 @@ function runWatchMode(targetDir) {
 
   startWatchMode(resolvedTargetDir, (dir) => {
     console.log(colors.info('Auto-organizing...'));
-    runTidy(['--target', dir, '--verbose'], VERSION);
+    runRoute(['--target', dir, '--verbose'], VERSION);
   });
 }
 
@@ -166,14 +170,16 @@ async function run(argv) {
 
   // Support command aliases for easier use
   const commandAliases = {
-    'run': 'tidy',
-    'tidy': 'tidy',
-    'sort': 'tidy',
-    'fix': 'tidy',
-    'organize': 'tidy',
-    'clean': 'tidy',
-    'juggle': 'tidy',
-    'fj': 'tidy',
+    'run': 'route',
+    'route': 'route',
+    'fileroute': 'route',
+    'tidy': 'route',
+    'sort': 'route',
+    'fix': 'route',
+    'organize': 'route',
+    'clean': 'route',
+    'juggle': 'route',
+    'fj': 'route',
     'undo': 'undo',
     'restore': 'undo',
     'preview': 'preview',
@@ -185,14 +191,14 @@ async function run(argv) {
 
   const normalizedCommand = commandAliases[command] || command;
 
-  if (normalizedCommand === 'tidy') {
-    runTidy(rest, VERSION);
+  if (normalizedCommand === 'route') {
+    runRoute(rest, VERSION);
     return;
   }
 
   if (normalizedCommand === 'preview') {
     // Preview mode: dry-run
-    runTidy(['--dry-run', ...rest], VERSION);
+    runRoute(['--dry-run', ...rest], VERSION);
     return;
   }
 
@@ -207,20 +213,41 @@ async function run(argv) {
     return;
   }
 
+  if (normalizedCommand === 'setup') {
+    const targetDir = getTargetFlagValue(rest);
+    console.log(colors.header('\n🚀 Starting fileroute Setup...'));
+    const config = await createConfig(targetDir);
+    displayConfig(targetDir);
+
+    if (config && config.autoWatch) {
+      console.log(colors.success('\n✨ Auto-organize (Watch Mode) enabled!'));
+      console.log(colors.info(`Monitoring folder: ${targetDir}`));
+      console.log(colors.info('New files will be automatically moved into appropriate category folders.\n'));
+      runWatchMode(targetDir);
+    } else {
+      console.log(colors.info('\nAuto-organize disabled. You can organize files manually anytime.'));
+    }
+    return;
+  }
+
   if (normalizedCommand === 'config') {
     const targetDir = getTargetFlagValue(rest);
-    await createConfig(targetDir);
+    const config = await createConfig(targetDir);
     displayConfig(targetDir);
+    if (config && config.autoWatch) {
+      console.log(colors.success('\n✨ Auto-organize (Watch Mode) enabled! Starting watch mode...'));
+      runWatchMode(targetDir);
+    }
     return;
   }
 
   if (looksLikePath(command)) {
-    runTidy(['--target', command, ...rest], VERSION);
+    runRoute(['--target', command, ...rest], VERSION);
     return;
   }
 
   if (command.startsWith('-') || command.startsWith('--')) {
-    runTidy(argv, VERSION);
+    runRoute(argv, VERSION);
     return;
   }
 
@@ -230,7 +257,8 @@ async function run(argv) {
 }
 
 module.exports = {
-  printTidyHelp,
+  printRouteHelp,
+  printTidyHelp: printRouteHelp,
   printUndoHelp,
   run,
 };

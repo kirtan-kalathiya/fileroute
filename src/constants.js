@@ -1,4 +1,4 @@
-const VERSION = '1.2.0';
+const VERSION = '1.0.0';
 const APP_FOLDER = '.fileroute';
 const MANIFEST_PREFIX = 'manifest-';
 const RULES_CONFIG_FILE = '.fileroute.json';

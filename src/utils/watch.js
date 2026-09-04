@@ -6,6 +6,7 @@ function startWatchMode(targetDir, onFileChange) {
   const ignoredPatterns = [
     /node_modules/,
     /\.git/,
+    /\.fileroute/,
     /\.folder-tidy/,
     '**/*.tmp',
     '**/*.temp',

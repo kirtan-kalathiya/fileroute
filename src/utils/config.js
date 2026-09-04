@@ -4,7 +4,7 @@ const inquirer = require('inquirer');
 const colors = require('./colors');
 const { normalizePath } = require('./paths');
 
-const CONFIG_FILE = '.folder-tidy-config.json';
+const CONFIG_FILE = '.fileroute-config.json';
 
 function getConfigPath(targetDir) {
   return path.join(targetDir, CONFIG_FILE);
@@ -12,12 +12,13 @@ function getConfigPath(targetDir) {
 
 function getDefaultConfig() {
   return {
-    version: '1.2.0',
+    version: '1.0.0',
     mode: 'type',
     recursive: false,
     includeHidden: false,
     excludePatterns: [],
     autoUndo: true,
+    autoWatch: false,
     dryRunByDefault: false,
   };
 }
@@ -74,16 +75,26 @@ async function createConfig(targetDir) {
 
     if (!edit.editExisting) {
       console.log(colors.info('Config not modified'));
-      return;
+      return existingConfig.config;
     }
   }
 
   const answers = await inquirer.prompt([
     {
+      type: 'confirm',
+      name: 'autoWatch',
+      message: 'Do you want to automatically organize your files?',
+      default: true,
+    },
+    {
       type: 'list',
       name: 'mode',
       message: 'Default organize mode:',
-      choices: ['type', 'name', 'date'],
+      choices: [
+        { name: 'File type (Images, Documents, Videos, etc.)', value: 'type' },
+        { name: 'File name pattern', value: 'name' },
+        { name: 'Modified date (Year/Month)', value: 'date' },
+      ],
       default: 'type',
     },
     {
@@ -107,7 +118,7 @@ async function createConfig(targetDir) {
   ]);
 
   const config = {
-    version: '1.2.0',
+    version: '1.0.0',
     ...answers,
     excludePatterns: [],
     dryRunByDefault: false,
@@ -115,6 +126,7 @@ async function createConfig(targetDir) {
 
   saveConfig(targetDir, config);
   console.log(colors.info(`Config file created: ${CONFIG_FILE}`));
+  return config;
 }
 
 function displayConfig(targetDir) {
