@@ -62,7 +62,7 @@ Thumbs.db
 *.sln
 
 # -----------------------------
-# 📂 Folder-Tidy Specific
+# 📂 fileroute Specific
 # -----------------------------
 .folder-tidy-log.json
 .folder-tidy.json

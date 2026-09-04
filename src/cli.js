@@ -180,6 +180,7 @@ async function run(argv) {
     'watch': 'watch',
     'config': 'config',
     'setup': 'config',
+    'rules': 'config',
   };
 
   const normalizedCommand = commandAliases[command] || command;

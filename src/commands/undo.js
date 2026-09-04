@@ -8,11 +8,11 @@ const colors = require('../utils/colors');
 
 function printUndoHelp() {
   console.log(`
-${colors.header('📂 FileJuggler CLI - Undo Command')} ${VERSION}
+${colors.header('📂 fileroute CLI - Undo Command')} ${VERSION}
 
 ${colors.header('Usage:')}
-${colors.arrow('filejuggler undo <path>')}
-${colors.arrow('filejuggler undo --manifest <file>')}
+${colors.arrow('fileroute undo <path>')}
+${colors.arrow('fileroute undo --manifest <file>')}
 
 ${colors.header('Options:')}
 ${colors.bullet('--target <path>')}      Target directory that contains .folder-tidy manifests
@@ -87,7 +87,7 @@ function runUndo(argv) {
   const manifest = readManifest(manifestPath);
   const moves = Array.isArray(manifest.moves) ? [...manifest.moves].reverse() : [];
 
-  console.log(`folder-tidy ${VERSION}`);
+  console.log(`fileroute ${VERSION}`);
   console.log(`command: undo`);
   console.log(`manifest: ${manifestPath}`);
   console.log(`target: ${targetDir}${options.dryRun ? ' (dry run)' : ''}`);

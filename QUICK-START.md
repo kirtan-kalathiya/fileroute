@@ -1,101 +1,142 @@
-# 🚀 Quick Start Guide
+# 🚀 fileroute Quick Start Guide
 
-## Easiest Commands for Users
+**Route files to the right place — automatically.**
+
+## ⚡ Fastest Way to Get Started
 
 ### 1️⃣ **Interactive Mode (Recommended)**
 ```bash
-folder-tidy
+fileroute
+```
+or
+```bash
+route
 ```
 Just run it and select what you want from the menu!
 
 ---
 
-### 2️⃣ **One-Command Organization**
+## 📋 Essential Commands
 
-#### Organize current folder
+### Organize a Folder
 ```bash
-folder-tidy tidy
+fileroute ~/Downloads
+fileroute ~/Desktop
+route .
 ```
 
-#### Organize specific folder
+### Preview Before Moving
 ```bash
-folder-tidy tidy --target ~/Downloads
+fileroute preview ~/Downloads
+fileroute --dry-run ~/Downloads
 ```
 
-#### Preview before organizing
+### Undo Last Operation
 ```bash
-folder-tidy tidy --dry-run
+fileroute undo ~/Downloads
 ```
 
-#### Undo last operation
+### Watch & Auto-Organize
 ```bash
-folder-tidy undo
+fileroute watch ~/Downloads
 ```
+Files automatically sorted as they arrive.
 
----
-
-### 3️⃣ **Short NPM Scripts (if using locally)**
-
-If you cloned this repo, use these easy commands:
-
+### Create Custom Rules
 ```bash
-npm run organize       # Organize current folder
-npm run clean         # Same as organize
-npm run preview       # Preview changes (dry-run)
-npm run undo          # Undo last operation
-npm run watch         # Watch for new files
-npm run config        # Create/edit config
-npm run help          # Show help
-npm start             # Interactive menu
-```
-
----
-
-### 4️⃣ **Super Short Commands**
-
-Once installed globally, you can use these everywhere:
-
-```bash
-# Most Common
-folder-tidy                    # Interactive menu
-folder-tidy tidy               # Organize now
-folder-tidy tidy --dry-run    # Preview first
-folder-tidy undo               # Restore files
-
-# Advanced
-folder-tidy tidy --target .    # Organize specific path
-folder-tidy watch              # Auto-organize new files
-folder-tidy config             # Set custom rules
-folder-tidy --help             # Show all options
+fileroute config --target ~/Downloads
 ```
 
 ---
 
 ## 📖 Real-World Examples
 
-### Scenario 1: Time to Clean Downloads
+### Scenario 1: Clean Downloads in One Command
 ```bash
-folder-tidy tidy --target ~/Downloads
+fileroute ~/Downloads
 ```
-✅ Done! Files organized in seconds.
+✅ Done! Files organized by type (Documents, Images, Videos, Code, Archives, etc).
 
-### Scenario 2: "Wait, I want to preview first"
+### Scenario 2: Preview Changes First
 ```bash
-folder-tidy tidy --target ~/Downloads --dry-run
+fileroute preview ~/Downloads
 ```
-📋 See what will happen without moving anything.
+📋 See exactly what will move before anything happens.
 
-### Scenario 3: "Oh no, undo that!"
+### Scenario 3: "Oops, Undo That!"
 ```bash
-folder-tidy undo
+fileroute undo ~/Downloads
 ```
 ↩️ All files restored to original locations.
 
-### Scenario 4: "Keep my Downloads clean automatically"
+### Scenario 4: Keep Downloads Auto-Organized
 ```bash
-folder-tidy watch --target ~/Downloads
+fileroute watch ~/Downloads
 ```
-👀 New files auto-organized as they arrive.
+👀 New files automatically organized as they arrive.
+
+### Scenario 5: Use Short Alias
+```bash
+route ~/Desktop
+route --dry-run ~/Desktop
+route undo ~/Desktop
+```
+
+---
+
+## 🔧 All Command Options
+
+### Global Options
+```bash
+fileroute <folder>              # Organize now
+fileroute preview <folder>      # Preview changes
+fileroute watch <folder>        # Auto-organize (watch mode)
+fileroute undo <folder>         # Restore files
+fileroute config --target <folder>  # Set custom rules
+```
+
+### Flags
+```bash
+--help, -h              Show help
+--version               Show version
+--dry-run               Preview changes
+--target <path>         Specific folder (required for some commands)
+--config <file>         Load a config file
+--verbose               Detailed output
+--recursive             Include subfolders
+```
+
+---
+
+## 📦 Installation
+
+### Install Globally (Recommended)
+```bash
+npm install -g fileroute
+```
+
+### Try Without Installing
+```bash
+npx fileroute ~/Downloads
+```
+
+### Local Development
+```bash
+npm install
+npm start
+```
+
+---
+
+## 💡 Tips & Tricks
+
+- **Use aliases**: `route` is shorter than `fileroute`
+- **Always preview first**: Use `--dry-run` to see changes before they happen
+- **Watch mode**: Perfect for keeping Downloads clean automatically
+- **Custom config**: Edit rules to organize your way
+- **Undo anytime**: Every run saves a manifest, so you can always restore
+
+---
 
 ---
 
@@ -103,13 +144,13 @@ folder-tidy watch --target ~/Downloads
 
 | What You Want | Command |
 |---|---|
-| Menu | `folder-tidy` |
-| Organize | `folder-tidy tidy` |
-| Preview | `folder-tidy tidy --dry-run` |
-| Undo | `folder-tidy undo` |
-| Watch | `folder-tidy watch` |
-| Config | `folder-tidy config` |
-| Help | `folder-tidy --help` |
+| Menu | `fileroute` or `route` |
+| Organize | `fileroute ~/Downloads` |
+| Preview | `fileroute --dry-run ~/Downloads` |
+| Undo | `fileroute undo ~/Downloads` |
+| Watch | `fileroute watch ~/Downloads` |
+| Config | `fileroute config --target ~/Downloads` |
+| Help | `fileroute --help` |
 
 ---
 
@@ -117,24 +158,24 @@ folder-tidy watch --target ~/Downloads
 
 1. **Always preview first**
    ```bash
-   folder-tidy tidy --dry-run
-   folder-tidy tidy                # Then run for real
+   fileroute --dry-run ~/Downloads
+   fileroute ~/Downloads              # Then run for real
    ```
 
 2. **Watch while working**
    ```bash
-   folder-tidy watch --target ~/Downloads
+   fileroute watch --target ~/Downloads
    ```
 
-3. **Save a preset**
+3. **Save custom rules**
    ```bash
-   folder-tidy config --target ~/Downloads
+   fileroute config --target ~/Downloads
    # Customize, save, and it remembers!
    ```
 
-4. **Show detailed info**
+4. **Show detailed output**
    ```bash
-   folder-tidy tidy --verbose
+   fileroute ~/Downloads --verbose
    ```
 
 ---
@@ -142,11 +183,11 @@ folder-tidy watch --target ~/Downloads
 ## 🆘 Need Help?
 
 ```bash
-folder-tidy --help              # General help
-folder-tidy tidy --help         # Organize help
-folder-tidy undo --help         # Undo help
+fileroute --help              # General help
+fileroute preview --help      # Preview help
+fileroute undo --help         # Undo help
 ```
 
 ---
 
-That's it! Keep your folders tidy! 🧹✨
+That's it! Keep your folders organized with fileroute! 🧹✨
