@@ -366,7 +366,7 @@ npm test
 
 - **npm Package**: [`fileroute`](https://www.npmjs.com/package/fileroute)
 - **Repository**: [github.com/kirtan-kalathiya/fileroute](https://github.com/kirtan-kalathiya/fileroute)
-- **Homepage**: [fileroute.dev](https://fileroute.dev/)
+- **Homepage**: [fileroute.dev](https://fileroute.vercel.app/)
 - **CLI Executables**: `fileroute`, `route`
 
 ---
